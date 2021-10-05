@@ -180,7 +180,7 @@ class ConvexShape(Shape):
         return self._faces_idxs
 
     def _make_consistent_orientation_of_faces(self):
-        for i, face_idxs in zip(xrange(self.cv.nsimplex), self.faces_idxs):
+        for i, face_idxs in zip(range(self.cv.nsimplex), self.faces_idxs):
             # Compute the orientation for the current face
             orientation = Shape.get_orientation_of_face(self.points, face_idxs)
             if orientation < 0:
@@ -209,7 +209,7 @@ class Cuboid(ConvexShape):
             for k in range(2)
         ])
 
-        return vertices[np.tile(range(3), (8, 1)), idxs].T
+        return vertices[np.tile(list(range(3)), (8, 1)), idxs].T
 
     @staticmethod
     def keep_points_inside_cube(x, y, z, x_min, x_max,

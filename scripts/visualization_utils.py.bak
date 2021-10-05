@@ -82,8 +82,8 @@ def points_on_cuboid(a1, a2, a3, e1, e2, R, t, n_samples=100):
 
     points = np.stack([X, Y, Z]).reshape(3, -1)
     points_transformed = R.T.dot(points) + t
-    print(("R:", R))
-    print(("t:", t))
+    print "R:", R
+    print "t:", t
 
     assert points.shape == (3, 18)
 
@@ -115,8 +115,7 @@ def _from_primitive_parms_to_mesh(primitive_params):
 
     # Build a mesh object using the vertices loaded before and get its
     # convex hull
-    m = trimesh.Trimesh(vertices=V.T)#.convex_hull
-    m = trimesh.convex.convex_hull(m, "Qw")
+    m = trimesh.Trimesh(vertices=V.T).convex_hull
     # Apply color
     for i in range(len(m.faces)):
         m.visual.face_colors[i] = color
@@ -144,9 +143,8 @@ def save_prediction_as_ply(primitive_files, filepath):
     m = None
     for p in primitive_files:
         # Parse the primitive parameters
-        prim_params = pickle.load(open(p, "rb"))
+        prim_params = pickle.load(open(p, "r"))
         _m = _from_primitive_parms_to_mesh(prim_params)
         m = trimesh.util.concatenate(_m, m)
 
-    # m.export(filepath, file_type="ply")
-    m.export(filepath)
+    m.export(filepath, file_type="ply")

@@ -28,7 +28,7 @@ from learnable_primitives.primitives import\
     euler_angles_to_rotation_matrices, quaternions_to_rotation_matrices
 from learnable_primitives.voxelizers import VoxelizerFactory
 
-# from mayavi import mlab
+from mayavi import mlab
 
 
 def get_shape_configuration(use_cuboids):
@@ -113,7 +113,7 @@ def main(argv):
         device = torch.device("cuda:0")
     else:
         device = torch.device("cpu")
-    print(("Running code on ", device))
+    print("Running code on ", device)
 
     # Create a factory that returns the appropriate voxelizer based on the
     # input argument
@@ -186,16 +186,16 @@ def main(argv):
         pts = pts.squeeze().detach().numpy().T
 
         on_prims = 0
-        # fig = mlab.figure(size=(400, 400), bgcolor=(1, 1, 1))
-        # mlab.view(azimuth=0.0, elevation=0.0, distance=2)
+        fig = mlab.figure(size=(400, 400), bgcolor=(1, 1, 1))
+        mlab.view(azimuth=0.0, elevation=0.0, distance=2)
         # Uncomment to visualize the points sampled from the target mesh
         # t = np.array([1.2, 0, 0]).reshape(3, -1)
         # pts_n = pts + t
-            # mlab.points3d(
-               # pts_n[0], pts_n[1], pts_n[2],
-               # pts[0], pts[1], pts[2],
-               # scale_factor=0.03, color=(0.8, 0.8, 0.8)
-            # )
+        #     mlab.points3d(
+        #        # pts_n[0], pts_n[1], pts_n[2],
+        #        pts[0], pts[1], pts[2],
+        #        scale_factor=0.03, color=(0.8, 0.8, 0.8)
+        #     )
 
         # Keep track of the files containing the parameters of each primitive
         primitive_files = []
@@ -229,13 +229,13 @@ def main(argv):
             )
             if probs[0, i] >= args.prob_threshold:
                 on_prims += 1
-                # mlab.mesh(
-                    # x_tr,
-                    # y_tr,
-                    # z_tr,
-                    # color=tuple(colors[i % len(colors)]),
-                    # opacity=1.0
-                # )
+                mlab.mesh(
+                    x_tr,
+                    y_tr,
+                    z_tr,
+                    color=tuple(colors[i % len(colors)]),
+                    opacity=1.0
+                )
                 primitive_files.append(
                     os.path.join(args.output_directory, "primitive_%d.p" % (i,))
                 )
@@ -244,18 +244,18 @@ def main(argv):
             cnt = 0
             for az in range(0, 360, 1):
                 cnt += 1
-                # mlab.view(azimuth=az, elevation=0.0, distance=2)
-                # mlab.savefig(
-                    # os.path.join(
-                        # args.output_directory,
-                        # "img_%04d.png" % (cnt,)
-                    # )
-                # )
+                mlab.view(azimuth=az, elevation=0.0, distance=2)
+                mlab.savefig(
+                    os.path.join(
+                        args.output_directory,
+                        "img_%04d.png" % (cnt,)
+                    )
+                )
         for i in range(args.n_primitives):
-            print((i, probs[0, i]))
+            print(i, probs[0, i])
 
-        print(("Using %d primitives out of %d" % (on_prims, args.n_primitives)))
-        # mlab.show()
+        print("Using %d primitives out of %d" % (on_prims, args.n_primitives))
+        mlab.show()
 
         if args.save_prediction_as_mesh:
             print("Saving prediction as mesh....")
@@ -263,9 +263,9 @@ def main(argv):
                 primitive_files,
                 os.path.join(args.output_directory, "primitives.ply")
             )
-            print(("Saved prediction as ply file in {}".format(
+            print("Saved prediction as ply file in {}".format(
                 os.path.join(args.output_directory, "primitives.ply")
-            )))
+            ))
 
 
 if __name__ == "__main__":

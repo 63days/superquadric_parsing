@@ -13,7 +13,7 @@ import numpy as np
 from progress.bar import Bar
 from pyquaternion import Quaternion
 
-from shapes import Shape, Cuboid, Ellipsoid
+from .shapes import Shape, Cuboid, Ellipsoid
 
 from learnable_primitives.mesh import MeshFromOBJ
 
@@ -205,7 +205,7 @@ def main(argv):
 
         # Create subdirectory to save the sample
         folder_name = ''.join([
-            random.choice(ascii_letters + digits) for n in xrange(32)
+            random.choice(ascii_letters + digits) for n in range(32)
         ])
         base_dir = os.path.join(output_directory, folder_name, "models")
         if not os.path.exists(base_dir):
@@ -218,15 +218,15 @@ def main(argv):
             os.path.join(base_dir, "model_normalized_pcl.obj"), "obj"
         )
         if "translated" in args.shapes_type:
-            print os.path.join(base_dir, "model_normalized_pcl.obj"), t.T
+            print(os.path.join(base_dir, "model_normalized_pcl.obj"), t.T)
         if "rotated" in args.shapes_type:
-            print os.path.join(base_dir, "model_normalized_pcl.obj"), q
-        bar.next()
+            print(os.path.join(base_dir, "model_normalized_pcl.obj"), q)
+        next(bar)
 
     for i in os.listdir(output_directory):
         x = os.path.join(output_directory, i, "models/model_normalized.obj")
         m = MeshFromOBJ(x)
-        print x, m.points.max(-1)
+        print(x, m.points.max(-1))
 
 
 if __name__ == "__main__":

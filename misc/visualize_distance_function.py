@@ -103,6 +103,6 @@ if __name__ == "__main__":
     e1s = np.random.random((N,))*1.6 + 0.2
     e2s = np.random.random((N,))*1.6 + 0.2
 
-    for i, a1, a2, a3, e1, e2 in zip(range(N), a1s, a2s, a3s, e1s, e2s):
-        print i, a1, a2, a3, e1, e2
+    for i, a1, a2, a3, e1, e2 in zip(list(range(N)), a1s, a2s, a3s, e1s, e2s):
+        print(i, a1, a2, a3, e1, e2)
         plot_C(a1, a2, a3, e1, e2, planes, i)

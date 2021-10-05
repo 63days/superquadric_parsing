@@ -28,7 +28,7 @@ def collect_metadata():
         meta["description"] = collect_docstring(lines)
         for line in lines:
             if line.startswith("__"):
-                key, value = map(lambda x: x.strip(), line.split("="))
+                key, value = [x.strip() for x in line.split("=")]
                 meta[key[2:-2]] = value[1:-1]
 
     return meta
@@ -54,18 +54,20 @@ def get_install_requirements():
     return [
         "numpy",
         "scikit-learn",
-        "trimesh==2.38.42",
-        "torch==0.4.1",
-        "torchvision==0.1.8",
-        "progress==1.4",
+        # "trimesh==2.38.42",
+        # "torch==0.4.1",
+        # "torchvision==0.1.8",
+        # "progress==1.4",
+        "progress",
         "cython",
         "Pillow",
         "pyquaternion",
         "backports.functools_lru_cache",
         "sympy",
-        "matplotlib==2.2.4",
+        # "matplotlib==2.2.4",
+        "matplotlib",
         "seaborn",
-        "mayavi"
+        # "mayavi"
     ]
 
 

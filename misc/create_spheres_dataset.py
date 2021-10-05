@@ -9,7 +9,7 @@ import sys
 import numpy as np
 from pyquaternion import Quaternion
 
-from shapes import Sphere, Ellipsoid, Shape
+from .shapes import Sphere, Ellipsoid, Shape
 
 from learnable_primitives.mesh import MeshFromOBJ
 from learnable_primitives.utils.progbar import Progbar
@@ -80,7 +80,7 @@ def main(argv):
         args.output_directory,
         "spheres_dataset"
     )
-    print "Saving models to %s" % (output_directory,)
+    print("Saving models to %s" % (output_directory,))
 
     prog = Progbar(args.n_samples)
     for i in range(args.n_samples):

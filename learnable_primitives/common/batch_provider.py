@@ -52,7 +52,7 @@ class BatchProvider(object):
     def __next__(self):
         return next()
 
-    def next(self):
+    def __next__(self):
         idxs = np.random.randint(0, self.cache_size, size=self.batch_size)
         with self.cache_lock:
             return self.X[idxs], self.y[idxs]
